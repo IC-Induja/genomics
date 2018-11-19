@@ -26,7 +26,7 @@ class Region(BaseRegion):
     - stop (int):
     - strand (str):
     - sequence (Sequence):
-    - isCircular (bool):
+    - _crosses_origin (bool):
     """
 
     # NOTE: should start be the location of the 5' end? or the smaller number?
@@ -52,23 +52,32 @@ class Region(BaseRegion):
 
     # TODO: implement TODO: Ana
     def end5(self):
-        raise NotImplementedError()
+        return Region(self.start, self.start, self.strand, self.sequence)
 
     # TODO: implement TODO: Ana
     def end3(self):
-        raise NotImplementedError()
+        return Region(self.stop, self.stop, self.strand, self.sequence)
 
     # TODO: implement TODO: Ana
     def as_positive_strand(self):
-        raise NotImplementedError()
+        if self.strand == '+':
+            return Region(self.start, self.stop, self.strand, self.sequence)
+        elif self.strand == '-':
+            return Region(self.stop, self.start, "+", self.sequence)
 
     # TODO: implement TODO: Ana
     def as_negative_strand(self):
-        raise NotImplementedError()
+        if self.strand == '-':
+            return Region(self.start, self.stop, self.strand, self.sequence)
+        elif self.strand == '+':
+            return Region(self.stop, self.start, "-", self.sequence)
 
     # TODO: implement TODO: Ana
     def as_opposite_strand(self):
-        raise NotImplementedError()
+        if self.strand == '+':
+            return Region(self.stop, self.start, '-', self.sequence)
+        elif self.strand == '-':
+            return Region(self.stop, self.start, "+", self.sequence)
 
     # TODO: implement TODO: Ana
     def intersects(self, other_region):
