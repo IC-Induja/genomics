@@ -23,7 +23,8 @@ pages:
   - Sequence: docs/Sequence.md
   - DNASequence: docs/DNASequence.md
   - RNASequence: docs/RNASequence.md
-- region: docs/region.md
+- region: docs/Region.md
 
-gens_dir: _docs/pydocmd     # This will end up as the MkDocs 'docs_dir'
-site_dir: _docs/site
+gens_dir: _build/pydocmd     # This will end up as the MkDocs 'docs_dir'
+site_dir: docs
+headers: markdown

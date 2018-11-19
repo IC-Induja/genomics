@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>DNASequence - Genomics Documentation</title>
+  <title>region - Genomics Documentation</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -17,8 +17,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "DNASequence";
-    var mkdocs_page_input_path = "docs/DNASequence.md";
+    var mkdocs_page_name = "region";
+    var mkdocs_page_input_path = "docs/Region.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -61,12 +61,9 @@
                     
     <a class="" href="../Sequence/">Sequence</a>
                 </li>
-                <li class=" current">
+                <li class="">
                     
-    <a class="current" href="./">DNASequence</a>
-    <ul class="subnav">
-            
-    </ul>
+    <a class="" href="../DNASequence/">DNASequence</a>
                 </li>
                 <li class="">
                     
@@ -75,9 +72,12 @@
     </ul>
 	    </li>
           
-            <li class="toctree-l1">
+            <li class="toctree-l1 current">
 		
-    <a class="" href="../region.md">region</a>
+    <a class="current" href="./">region</a>
+    <ul class="subnav">
+            
+    </ul>
 	    </li>
           
         </ul>
@@ -101,12 +101,8 @@
     <li><a href="../..">Docs</a> &raquo;</li>
     
       
-        
-          <li>sequence &raquo;</li>
-        
-      
     
-    <li>DNASequence</li>
+    <li>region</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -116,32 +112,24 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="genomics.DNASequence">DNASequence</h1>
+                <h1 id="genomics.Region">Region</h1>
 
-<pre><code class="python">DNASequence(self, seq, **kwargs)
+<pre><code class="python">Region(self, start, stop, strand=None, sequence=None)
 </code></pre>
 
-<p>Abstract sequence class.</p>
+<p>Description of a region on a sequence or genome.</p>
 <p><strong>Properties</strong></p>
-<p>id (str): Identifier. Must be unique within a genome. If none is provided, uses a uuid.
-id_type (str): Source of identifier.
-data (str): Sequence contents.
-start_index (int): Index representing first position in data. Default 1 (as 1-indexing is common in biology).
-is_double_stranded (bool): Indicates whether sequence has complementary strand. Default True.</p>
-<h2 id="genomics.DNASequence.find">find</h2>
-
-<pre><code class="python">DNASequence.find(self, query, strand=None)
-</code></pre>
-
-<p>locates query in sequence.</p>
-<p><strong>Arguments</strong></p>
 <ul>
-<li><strong>query (string)</strong>: string to search for</li>
-<li><strong>strand (string)</strong>: One of {'+', '-'}. If provided, find will only search
-    the given strand.</li>
+<li>start (int):</li>
+<li>stop (int):</li>
+<li>strand (str):</li>
+<li>sequence (Sequence):</li>
+<li>isCircular (bool):</li>
 </ul>
-<p><strong>Returns</strong></p>
-<p><code>Region</code>: location of first match on sequence</p>
+<h1 id="genomics.DisjointRegion">DisjointRegion</h1>
+
+<pre><code class="python">DisjointRegion(self, start, stop, strand)
+</code></pre>
               
             </div>
           </div>
@@ -149,10 +137,8 @@ is_double_stranded (bool): Indicates whether sequence has complementary strand. 
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../RNASequence/" class="btn btn-neutral float-right" title="RNASequence">Next <span class="icon icon-circle-arrow-right"></span></a>
       
-      
-        <a href="../Sequence/" class="btn btn-neutral" title="Sequence"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../RNASequence/" class="btn btn-neutral" title="RNASequence"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -178,10 +164,8 @@ is_double_stranded (bool): Indicates whether sequence has complementary strand. 
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../Sequence/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../RNASequence/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
-      
-        <span style="margin-left: 15px"><a href="../RNASequence/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
