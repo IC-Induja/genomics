@@ -1,0 +1,29 @@
+site_name: "Genomics Documentation"
+
+# This tells pydocmd which pages to generate from which Python modules
+generate:
+- docs/Sequence.md:
+  - genomics.Sequence+
+- docs/DNASequence.md:
+  - genomics.DNASequence+
+- docs/RNASequence.md:
+  - genomics.RNASequence+
+- docs/AminoAcidSequence.md:
+  - genomics.AminoAcidSequence+
+- docs/Region.md:
+  - genomics.Region+
+  - genomics.DisjointRegion+
+
+# MkDocs pages configuration. The `<<` operator is sugar added by pydocmd
+# that allows you to use an external Markdown file (eg. your project's README)
+# in the documentation. The path must be relative to current working directory.
+pages:
+- Home: index.md << README.md
+- sequence:
+  - Sequence: docs/Sequence.md
+  - DNASequence: docs/DNASequence.md
+  - RNASequence: docs/RNASequence.md
+- region: docs/region.md
+
+gens_dir: _docs/pydocmd     # This will end up as the MkDocs 'docs_dir'
+site_dir: _docs/site

@@ -1,0 +1,21 @@
+# Editor temporary/backup files #
+#################################
+*.swp
+
+# Compiled Source #
+###################
+*.pyc
+
+# Python Files #
+################
+# Egg metadata
+*.egg-info
+
+# tox testing tool
+.tox
+# coverage
+.coverage
+
+# OS generated files #
+######################
+.DS_Store

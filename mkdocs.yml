@@ -1,0 +1,11 @@
+docs_dir: _docs/pydocmd
+pages:
+- {Home: index.md}
+- sequence:
+  - {Sequence: docs/Sequence.md}
+  - {DNASequence: docs/DNASequence.md}
+  - {RNASequence: docs/RNASequence.md}
+- {region: docs/region.md}
+site_dir: _docs/site
+site_name: Genomics Documentation
+theme: readthedocs
