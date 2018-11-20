@@ -20,12 +20,9 @@ class Sequence(object):
     # NOTE: HOW to handle sequences w/ multiple (2) strands? find/count/etc don't work...
 
     # TODO: implement
-    def __init__(self, data, **kwargs):
+    def __init__(self, seq, **kwargs):
         allowed_kwargs = {'id', 'id_type', 'index'}
-
-        # TODO: set id
-        self.id = "id"
-        self.data = data
+        raise NotImplementedError()
 
     @classmethod
     def from_file(filepath, format=None, **kwargs):
@@ -79,11 +76,12 @@ class Sequence(object):
         # Returns
         int: length
         """
-        raise NotImplementedError()
+        return len(self.data)
 
     # TODO: implement
     def __repr__(self):
-        raise NotImplementedError()
+        return "Sequence<id:" + self.id + " " + str(__len__(self)) + "bp " \
+        + " " + self[0:20] + "..." + self[-20:-1] + ">"
 
     # TODO: implement
 
