@@ -20,9 +20,12 @@ class Sequence(object):
     # NOTE: HOW to handle sequences w/ multiple (2) strands? find/count/etc don't work...
 
     # TODO: implement
-    def __init__(self, seq, **kwargs):
+    def __init__(self, data, **kwargs):
         allowed_kwargs = {'id', 'id_type', 'index'}
-        raise NotImplementedError()
+
+        # TODO: set id
+        self.id = "id"
+        self.data = data
 
     @classmethod
     def from_file(filepath, format=None, **kwargs):
