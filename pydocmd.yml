@@ -2,28 +2,69 @@ site_name: "Genomics Documentation"
 
 # This tells pydocmd which pages to generate from which Python modules
 generate:
+- docs/Annotation.md:
+  - genomics.Annotation+
+- docs/AnnotationTable.md:
+  - genomics.AnnotationTable+
+- docs/Gene.md:
+  - genomics.Gene+
+- docs/GeneTable.md:
+  - genomics.GeneTable+
+- docs/Genome.md:
+  - genomics.Genome+
+
 - docs/Sequence.md:
   - genomics.Sequence+
-- docs/DNASequence.md:
-  - genomics.DNASequence+
-- docs/RNASequence.md:
-  - genomics.RNASequence+
-- docs/AminoAcidSequence.md:
-  - genomics.AminoAcidSequence+
+- docs/DNA.md:
+  - genomics.DNA+
+- docs/RNA.md:
+  - genomics.RNA+
+- docs/AminoAcids.md:
+  - genomics.AminoAcids+
+- docs/SequenceSet.md:
+  - genomics.SequenceSet+
+  - genomics.DNASet+
+  - genomics.RNASet+
+  - genomics.AminoAcidsSet+
+
 - docs/Region.md:
+  - genomics.BaseRegion+
+  - genomics.LinearRegion+
+  - genomics.CircularRegion+
   - genomics.Region+
+- docs/DisjointRegion.md:
   - genomics.DisjointRegion+
+- docs/RegionTable.md:
+  - genomics.RegionTable+
+- docs/Variant.md:
+  - genomics.Variant+
+- docs/VariantTable.md:
+  - genomics.VariantTable+
 
 # MkDocs pages configuration. The `<<` operator is sugar added by pydocmd
 # that allows you to use an external Markdown file (eg. your project's README)
 # in the documentation. The path must be relative to current working directory.
 pages:
 - Home: index.md << README.md
+- annotations:
+  - Annotation: docs/Annotation.md
+  - AnnotationTable: docs/AnnotationTable.md
+- gene:
+  - Gene: docs/Gene.md
+  - GeneTable: docs/GeneTable.md
+- region:
+  - Region: docs/Region.md
+  - DisjointRegion: docs/DisjointRegion.md
+  - RegionTable: docs/RegionTable.md
 - sequence:
   - Sequence: docs/Sequence.md
-  - DNASequence: docs/DNASequence.md
-  - RNASequence: docs/RNASequence.md
-- region: docs/Region.md
+  - DNA: docs/DNA.md
+  - RNA: docs/RNA.md
+  - AminoAcids: docs/AminoAcids.md
+  - SequenceSet: docs/SequenceSet.md
+- variant:
+  - Variant: docs/Variant.md
+  - VariantTable: docs/VariantTable.md
 
 gens_dir: _build/pydocmd     # This will end up as the MkDocs 'docs_dir'
 site_dir: docs

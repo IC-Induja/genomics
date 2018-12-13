@@ -6,7 +6,7 @@ TODO: put description of our library here
 
 setup(name='genomics',
       version='0.0.1',
-      description='TODO: write short description',
+      description='User-friendly library for comparing annotations across genomes.',
       long_description=long_description,
       author='Induja Chandrakumar',
       author_email='ic.induja@gmail.com',

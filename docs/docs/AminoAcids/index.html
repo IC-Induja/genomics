@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>RNASequence - Genomics Documentation</title>
+  <title>AminoAcids - Genomics Documentation</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -17,8 +17,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "RNASequence";
-    var mkdocs_page_input_path = "docs/RNASequence.md";
+    var mkdocs_page_name = "AminoAcids";
+    var mkdocs_page_input_path = "docs/AminoAcids.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -55,6 +55,55 @@
           
             <li class="toctree-l1">
 		
+    <span class="caption-text">annotations</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../Annotation/">Annotation</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../AnnotationTable/">AnnotationTable</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">gene</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../Gene/">Gene</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../GeneTable/">GeneTable</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">region</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../Region/">Region</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../DisjointRegion/">DisjointRegion</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../RegionTable/">RegionTable</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
     <span class="caption-text">sequence</span>
     <ul class="subnav">
                 <li class="">
@@ -63,21 +112,39 @@
                 </li>
                 <li class="">
                     
-    <a class="" href="../DNASequence/">DNASequence</a>
+    <a class="" href="../DNA/">DNA</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../RNA/">RNA</a>
                 </li>
                 <li class=" current">
                     
-    <a class="current" href="./">RNASequence</a>
+    <a class="current" href="./">AminoAcids</a>
     <ul class="subnav">
             
     </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../SequenceSet/">SequenceSet</a>
                 </li>
     </ul>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="../Region/">region</a>
+    <span class="caption-text">variant</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../Variant/">Variant</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../VariantTable/">VariantTable</a>
+                </li>
+    </ul>
 	    </li>
           
         </ul>
@@ -106,7 +173,7 @@
         
       
     
-    <li>RNASequence</li>
+    <li>AminoAcids</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -116,10 +183,26 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="genomics.RNASequence">RNASequence</h1>
+                <h1 id="genomics.AminoAcids">AminoAcids</h1>
 
-<pre><code class="python">RNASequence(self, seq, **kwargs)
+<pre><code class="python">AminoAcids(self, seq, **kwargs)
 </code></pre>
+
+<p><strong>Properties</strong></p>
+<h2 id="genomics.AminoAcids.get_aa">get_aa</h2>
+
+<pre><code class="python">AminoAcids.get_aa(self, start, stop, index=1)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.AminoAcids.reverse_translate">reverse_translate</h2>
+
+<pre><code class="python">AminoAcids.reverse_translate(self, as_rna=False, codon_table=None, codon_usage=None)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
               
             </div>
           </div>
@@ -127,10 +210,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../Region/" class="btn btn-neutral float-right" title="region">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../SequenceSet/" class="btn btn-neutral float-right" title="SequenceSet">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../DNASequence/" class="btn btn-neutral" title="DNASequence"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../RNA/" class="btn btn-neutral" title="RNA"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -156,10 +239,10 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../DNASequence/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../RNA/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../Region/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../SequenceSet/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

@@ -9,6 +9,8 @@ from .sequence_set import SequenceSet
 
 class Genome(SequenceSet):
     """
+    # Properties
+
     """
 
     def __init__(self, sequences):
@@ -20,14 +22,38 @@ class Genome(SequenceSet):
     def __repr__(self):
         raise NotImplementedError()
 
-    def gc(self):
+    def calculate_gc(self):
+        """
+        # Arguments
+
+        # Returns
+
+        """
         raise NotImplementedError()
 
     def get_genes(self):
+        """
+        # Arguments
+
+        # Returns
+
+        """
         raise NotImplementedError()
 
     def get_transcripts(self):
+        """
+        # Arguments
+
+        # Returns
+
+        """
         raise NotImplementedError()
 
     def get_proteins(self):
+        """
+        # Arguments
+
+        # Returns
+
+        """
         raise NotImplementedError()

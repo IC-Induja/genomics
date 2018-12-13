@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>region - Genomics Documentation</title>
+  <title>Region - Genomics Documentation</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -17,7 +17,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "region";
+    var mkdocs_page_name = "Region";
     var mkdocs_page_input_path = "docs/Region.md";
     var mkdocs_page_url = null;
   </script>
@@ -55,6 +55,58 @@
           
             <li class="toctree-l1">
 		
+    <span class="caption-text">annotations</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../Annotation/">Annotation</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../AnnotationTable/">AnnotationTable</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">gene</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../Gene/">Gene</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../GeneTable/">GeneTable</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">region</span>
+    <ul class="subnav">
+                <li class=" current">
+                    
+    <a class="current" href="./">Region</a>
+    <ul class="subnav">
+            
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../DisjointRegion/">DisjointRegion</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../RegionTable/">RegionTable</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
     <span class="caption-text">sequence</span>
     <ul class="subnav">
                 <li class="">
@@ -63,20 +115,35 @@
                 </li>
                 <li class="">
                     
-    <a class="" href="../DNASequence/">DNASequence</a>
+    <a class="" href="../DNA/">DNA</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../RNASequence/">RNASequence</a>
+    <a class="" href="../RNA/">RNA</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../AminoAcids/">AminoAcids</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../SequenceSet/">SequenceSet</a>
                 </li>
     </ul>
 	    </li>
           
-            <li class="toctree-l1 current">
+            <li class="toctree-l1">
 		
-    <a class="current" href="./">region</a>
+    <span class="caption-text">variant</span>
     <ul class="subnav">
-            
+                <li class="">
+                    
+    <a class="" href="../Variant/">Variant</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../VariantTable/">VariantTable</a>
+                </li>
     </ul>
 	    </li>
           
@@ -101,8 +168,12 @@
     <li><a href="../..">Docs</a> &raquo;</li>
     
       
+        
+          <li>region &raquo;</li>
+        
+      
     
-    <li>region</li>
+    <li>Region</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -112,24 +183,213 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="genomics.Region">Region</h1>
+                <h1 id="genomics.BaseRegion">BaseRegion</h1>
 
-<pre><code class="python">Region(self, start, stop, strand=None, sequence=None)
+<pre><code class="python">BaseRegion(self, start, stop, strand=None, sequence_key=None)
 </code></pre>
 
-<p>Description of a region on a sequence or genome.</p>
+<p>Is contiguous</p>
+<h2 id="genomics.BaseRegion.get_start">get_start</h2>
+
+<pre><code class="python">BaseRegion.get_start(self)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.BaseRegion.get_stop">get_stop</h2>
+
+<pre><code class="python">BaseRegion.get_stop(self)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h1 id="genomics.LinearRegion">LinearRegion</h1>
+
+<pre><code class="python">LinearRegion(self, start, stop, strand=None, sequence=None)
+</code></pre>
+
+<p>Description of a region on a linear sequence.</p>
 <p><strong>Properties</strong></p>
 <ul>
-<li>start (int):</li>
-<li>stop (int):</li>
-<li>strand (str):</li>
-<li>sequence (Sequence):</li>
-<li>isCircular (bool):</li>
+<li>start (int): Coordinate of furthest base at 5' end of Region</li>
+<li>stop (int): Coordinate of furthest base at 3' end of Region</li>
+<li>strand (str, None): One of {'+', '-', None}. Defaults to None.</li>
+<li>sequence (str, None): Id of sequence that Region is on. Defaults to None.</li>
 </ul>
-<h1 id="genomics.DisjointRegion">DisjointRegion</h1>
+<h2 id="genomics.LinearRegion.shift">shift</h2>
 
-<pre><code class="python">DisjointRegion(self, start, stop, strand)
+<pre><code class="python">LinearRegion.shift(self, bases, direction=None)
 </code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.LinearRegion.expand">expand</h2>
+
+<pre><code class="python">LinearRegion.expand(self, upstream, downstream)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.LinearRegion.slice">slice</h2>
+
+<pre><code class="python">LinearRegion.slice(self, start, stop)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.LinearRegion.end5">end5</h2>
+
+<pre><code class="python">LinearRegion.end5(self)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.LinearRegion.end3">end3</h2>
+
+<pre><code class="python">LinearRegion.end3(self)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.LinearRegion.as_positive_strand">as_positive_strand</h2>
+
+<pre><code class="python">LinearRegion.as_positive_strand(self)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.LinearRegion.as_negative_strand">as_negative_strand</h2>
+
+<pre><code class="python">LinearRegion.as_negative_strand(self)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.LinearRegion.as_opposite_strand">as_opposite_strand</h2>
+
+<pre><code class="python">LinearRegion.as_opposite_strand(self)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.LinearRegion.intersects">intersects</h2>
+
+<pre><code class="python">LinearRegion.intersects(self, other_region)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.LinearRegion.contains">contains</h2>
+
+<pre><code class="python">LinearRegion.contains(self, other_region)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.LinearRegion.is_within">is_within</h2>
+
+<pre><code class="python">LinearRegion.is_within(self, other_region)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h1 id="genomics.CircularRegion">CircularRegion</h1>
+
+<pre><code class="python">CircularRegion(self, start, stop, strand=None, sequence=None)
+</code></pre>
+
+<p>Description of a contiguous region on a circular sequence, where the last base
+immediately precedes the first.</p>
+<p><strong>Properties</strong></p>
+<ul>
+<li>start (int): Coordinate of base at 5' end of Region</li>
+<li>stop (int): Coordinate of base at 3' end of Region</li>
+<li>strand (str, None): One of {'+', '-', None}. Defaults to None.</li>
+<li>sequence (str, None): Id of sequence that Region is on. Defaults to None.</li>
+</ul>
+<h2 id="genomics.CircularRegion.shift">shift</h2>
+
+<pre><code class="python">CircularRegion.shift(self, bases, direction=None)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.CircularRegion.expand">expand</h2>
+
+<pre><code class="python">CircularRegion.expand(self, upstream, downstream)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.CircularRegion.slice">slice</h2>
+
+<pre><code class="python">CircularRegion.slice(self, start, stop)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.CircularRegion.end5">end5</h2>
+
+<pre><code class="python">CircularRegion.end5(self)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.CircularRegion.end3">end3</h2>
+
+<pre><code class="python">CircularRegion.end3(self)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.CircularRegion.as_positive_strand">as_positive_strand</h2>
+
+<pre><code class="python">CircularRegion.as_positive_strand(self)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.CircularRegion.as_negative_strand">as_negative_strand</h2>
+
+<pre><code class="python">CircularRegion.as_negative_strand(self)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.CircularRegion.as_opposite_strand">as_opposite_strand</h2>
+
+<pre><code class="python">CircularRegion.as_opposite_strand(self)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.CircularRegion.intersects">intersects</h2>
+
+<pre><code class="python">CircularRegion.intersects(self, other_region)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.CircularRegion.contains">contains</h2>
+
+<pre><code class="python">CircularRegion.contains(self, other_region)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.CircularRegion.is_within">is_within</h2>
+
+<pre><code class="python">CircularRegion.is_within(self, other_region)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h1 id="genomics.Region">Region</h1>
+
+<pre><code class="python">Region(self, start, stop, strand=None, sequence_key=None)
+</code></pre>
+
+<p>Wrapper providing abstraction for circular or linear region.</p>
               
             </div>
           </div>
@@ -137,8 +397,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="../DisjointRegion/" class="btn btn-neutral float-right" title="DisjointRegion">Next <span class="icon icon-circle-arrow-right"></span></a>
       
-        <a href="../RNASequence/" class="btn btn-neutral" title="RNASequence"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+        <a href="../GeneTable/" class="btn btn-neutral" title="GeneTable"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -164,8 +426,10 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../RNASequence/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../GeneTable/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
+      
+        <span style="margin-left: 15px"><a href="../DisjointRegion/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
