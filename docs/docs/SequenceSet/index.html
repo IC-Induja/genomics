@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Region - Genomics Documentation</title>
+  <title>SequenceSet - Genomics Documentation</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -17,8 +17,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Region";
-    var mkdocs_page_input_path = "docs/Region.md";
+    var mkdocs_page_name = "SequenceSet";
+    var mkdocs_page_input_path = "docs/SequenceSet.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -87,12 +87,9 @@
 		
     <span class="caption-text">region</span>
     <ul class="subnav">
-                <li class=" current">
+                <li class="">
                     
-    <a class="current" href="./">Region</a>
-    <ul class="subnav">
-            
-    </ul>
+    <a class="" href="../Region/">Region</a>
                 </li>
                 <li class="">
                     
@@ -125,9 +122,12 @@
                     
     <a class="" href="../AminoAcids/">AminoAcids</a>
                 </li>
-                <li class="">
+                <li class=" current">
                     
-    <a class="" href="../SequenceSet/">SequenceSet</a>
+    <a class="current" href="./">SequenceSet</a>
+    <ul class="subnav">
+            
+    </ul>
                 </li>
     </ul>
 	    </li>
@@ -169,11 +169,11 @@
     
       
         
-          <li>region &raquo;</li>
+          <li>sequence &raquo;</li>
         
       
     
-    <li>Region</li>
+    <li>SequenceSet</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -183,213 +183,187 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="genomics.BaseRegion">BaseRegion</h1>
+                <h1 id="genomics.SequenceSet">SequenceSet</h1>
 
-<pre><code class="python">BaseRegion(self, start, stop, strand=None, sequence_key=None)
+<pre><code class="python">SequenceSet(self, sequences, start_index=None)
 </code></pre>
 
-<p>Is contiguous</p>
-<h2 id="genomics.BaseRegion.get_start">get_start</h2>
-
-<pre><code class="python">BaseRegion.get_start(self)
-</code></pre>
-
-<p><strong>Arguments</strong></p>
-<p><strong>Returns</strong></p>
-<h2 id="genomics.BaseRegion.get_stop">get_stop</h2>
-
-<pre><code class="python">BaseRegion.get_stop(self)
-</code></pre>
-
-<p><strong>Arguments</strong></p>
-<p><strong>Returns</strong></p>
-<h1 id="genomics.LinearRegion">LinearRegion</h1>
-
-<pre><code class="python">LinearRegion(self, start, stop, strand=None, sequence=None)
-</code></pre>
-
-<p>Description of a region on a linear sequence.</p>
+<p>Abstract class for a collection of sequences.</p>
 <p><strong>Properties</strong></p>
+<p>id (str): Identifier. If none is provided, uses a uuid.
+id_type (str): Source of identifier.
+sequences (list of sequences): Genome contents.
+start_index (int): TODO
+annotations (AnnotationTable): table containing all annotations, created by
+    concatenating the individual AnnotationTable for every Sequence in the
+    SequenceSet</p>
+<h2 id="genomics.SequenceSet.from_file">from_file</h2>
+
+<pre><code class="python">SequenceSet.from_file(filetype=None)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.SequenceSet.reindex">reindex</h2>
+
+<pre><code class="python">SequenceSet.reindex(self)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.SequenceSet.get_subset">get_subset</h2>
+
+<pre><code class="python">SequenceSet.get_subset(self, slice)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.SequenceSet.find">find</h2>
+
+<pre><code class="python">SequenceSet.find(self, query, limit=1)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.SequenceSet.count">count</h2>
+
+<pre><code class="python">SequenceSet.count(self, query)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.SequenceSet.find_pattern">find_pattern</h2>
+
+<pre><code class="python">SequenceSet.find_pattern(self, pattern, limit=1, overlapping=True)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.SequenceSet.count_pattern">count_pattern</h2>
+
+<pre><code class="python">SequenceSet.count_pattern(self, pattern)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.SequenceSet.compute_distance">compute_distance</h2>
+
+<pre><code class="python">SequenceSet.compute_distance(self, regionA, regionB, fn='levhenstein')
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.SequenceSet.apply_variant">apply_variant</h2>
+
+<pre><code class="python">SequenceSet.apply_variant(self, genomic_variant)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.SequenceSet.save_as">save_as</h2>
+
+<pre><code class="python">SequenceSet.save_as(self, path, filetype=None, overwrite_existing=False)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.SequenceSet.save_sequences">save_sequences</h2>
+
+<pre><code class="python">SequenceSet.save_sequences(self, path, filetype=None, overwrite_existing=False)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.SequenceSet.save_annotations">save_annotations</h2>
+
+<pre><code class="python">SequenceSet.save_annotations(self, path, filetype=None, overwrite_existing=False)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h1 id="genomics.DNASet">DNASet</h1>
+
+<pre><code class="python">DNASet(self, sequences, start_index=None)
+</code></pre>
+
+<p>SequenceSet with DNA-specific methods for fetching and storing</p>
+<h2 id="genomics.DNASet.calculate_gc">calculate_gc</h2>
+
+<pre><code class="python">DNASet.calculate_gc(self)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.DNASet.from_db">from_db</h2>
+
+<pre><code class="python">DNASet.from_db(db='ncbi', key_type='accession', with_annotations=True, start_index=1, allowed_chars=None, start_col='start', end_col=('end', 'stop'), key_col=('key', 'accession'), keys_from_file=False, tabular_file=False)
+</code></pre>
+
+<p>Fetches multiple sequences or sequence subsets from external db</p>
+<p>Compatible with multiple ways of specifying data.
+When <code>keys_from_file=False</code>:
+- If data_specification is iterable of strings, each string should be
+an key for a distinct sequence in the db.
+- If data_specification is iterable of tuples, each tuple should be in
+the format (key, start, stop) where:
+    - key is the db key for the sequence
+    - start is the index of the first element to be included
+    - end is the index of the last element to be included.
+If stop is omitted, uses index of last
+element in db sequence. If both start and stop are omitted, entire
+sequence will be used.</p>
+<p>When <code>keys_from_file=True</code>:
+- if data_specification is string, should be a path or url to either:
+    - if <code>from_tabular_file=False</code>: a file containing a list of db keys
+    - if <code>from_tabular_file=True</code>: a tabular file with a column
+    containing db keys, an (optional) column containing start indexes,
+    and an (optional) column containing stop indexes
+- if data_specification is pandas DataFrame, if should contain a column
+    of data keys, (optional) column of start indexes and (optional)
+    column of stop indexes</p>
+<p><strong>Arguments</strong></p>
 <ul>
-<li>start (int): Coordinate of furthest base at 5' end of Region</li>
-<li>stop (int): Coordinate of furthest base at 3' end of Region</li>
-<li>strand (str, None): One of {'+', '-', None}. Defaults to None.</li>
-<li>sequence (str, None): Id of sequence that Region is on. Defaults to None.</li>
+<li><strong>data_specification (iterable, str, or pd.DataFrame)</strong>: sequences specified
+    in the above format</li>
 </ul>
-<h2 id="genomics.LinearRegion.shift">shift</h2>
-
-<pre><code class="python">LinearRegion.shift(self, bases, direction=None)
-</code></pre>
-
-<p><strong>Arguments</strong></p>
 <p><strong>Returns</strong></p>
-<h2 id="genomics.LinearRegion.expand">expand</h2>
-
-<pre><code class="python">LinearRegion.expand(self, upstream, downstream)
-</code></pre>
-
-<p><strong>Arguments</strong></p>
-<p><strong>Returns</strong></p>
-<h2 id="genomics.LinearRegion.slice">slice</h2>
-
-<pre><code class="python">LinearRegion.slice(self, start, stop)
-</code></pre>
-
-<p><strong>Arguments</strong></p>
-<p><strong>Returns</strong></p>
-<h2 id="genomics.LinearRegion.end5">end5</h2>
-
-<pre><code class="python">LinearRegion.end5(self)
-</code></pre>
-
-<p><strong>Arguments</strong></p>
-<p><strong>Returns</strong></p>
-<h2 id="genomics.LinearRegion.end3">end3</h2>
-
-<pre><code class="python">LinearRegion.end3(self)
-</code></pre>
-
-<p><strong>Arguments</strong></p>
-<p><strong>Returns</strong></p>
-<h2 id="genomics.LinearRegion.as_positive_strand">as_positive_strand</h2>
-
-<pre><code class="python">LinearRegion.as_positive_strand(self)
-</code></pre>
-
-<p><strong>Arguments</strong></p>
-<p><strong>Returns</strong></p>
-<h2 id="genomics.LinearRegion.as_negative_strand">as_negative_strand</h2>
-
-<pre><code class="python">LinearRegion.as_negative_strand(self)
-</code></pre>
-
-<p><strong>Arguments</strong></p>
-<p><strong>Returns</strong></p>
-<h2 id="genomics.LinearRegion.as_opposite_strand">as_opposite_strand</h2>
-
-<pre><code class="python">LinearRegion.as_opposite_strand(self)
-</code></pre>
-
-<p><strong>Arguments</strong></p>
-<p><strong>Returns</strong></p>
-<h2 id="genomics.LinearRegion.intersects">intersects</h2>
-
-<pre><code class="python">LinearRegion.intersects(self, other_region)
-</code></pre>
-
-<p><strong>Arguments</strong></p>
-<p><strong>Returns</strong></p>
-<h2 id="genomics.LinearRegion.contains">contains</h2>
-
-<pre><code class="python">LinearRegion.contains(self, other_region)
-</code></pre>
-
-<p><strong>Arguments</strong></p>
-<p><strong>Returns</strong></p>
-<h2 id="genomics.LinearRegion.is_within">is_within</h2>
-
-<pre><code class="python">LinearRegion.is_within(self, other_region)
-</code></pre>
-
-<p><strong>Arguments</strong></p>
-<p><strong>Returns</strong></p>
-<h1 id="genomics.CircularRegion">CircularRegion</h1>
-
-<pre><code class="python">CircularRegion(self, start, stop, strand=None, sequence=None)
-</code></pre>
-
-<p>Description of a contiguous region on a circular sequence, where the last base
-immediately precedes the first.</p>
-<p><strong>Properties</strong></p>
+<p><strong>Raises</strong></p>
 <ul>
-<li>start (int): Coordinate of base at 5' end of Region</li>
-<li>stop (int): Coordinate of base at 3' end of Region</li>
-<li>strand (str, None): One of {'+', '-', None}. Defaults to None.</li>
-<li>sequence (str, None): Id of sequence that Region is on. Defaults to None.</li>
+<li><code>ValueError</code>:</li>
 </ul>
-<h2 id="genomics.CircularRegion.shift">shift</h2>
+<h1 id="genomics.RNASet">RNASet</h1>
 
-<pre><code class="python">CircularRegion.shift(self, bases, direction=None)
+<pre><code class="python">RNASet(self, sequences, start_index=None)
+</code></pre>
+
+<p>SequenceSet with RNA-specific methods for fetching and storing</p>
+<h2 id="genomics.RNASet.calculate_gc">calculate_gc</h2>
+
+<pre><code class="python">RNASet.calculate_gc(self)
 </code></pre>
 
 <p><strong>Arguments</strong></p>
 <p><strong>Returns</strong></p>
-<h2 id="genomics.CircularRegion.expand">expand</h2>
+<h2 id="genomics.RNASet.from_db">from_db</h2>
 
-<pre><code class="python">CircularRegion.expand(self, upstream, downstream)
+<pre><code class="python">RNASet.from_db(self)
 </code></pre>
 
 <p><strong>Arguments</strong></p>
 <p><strong>Returns</strong></p>
-<h2 id="genomics.CircularRegion.slice">slice</h2>
+<h1 id="genomics.AminoAcidsSet">AminoAcidsSet</h1>
 
-<pre><code class="python">CircularRegion.slice(self, start, stop)
+<pre><code class="python">AminoAcidsSet(self, sequences, start_index=None)
+</code></pre>
+
+<p>SequenceSet with AminoAcids-specific methods for fetching and storing</p>
+<h2 id="genomics.AminoAcidsSet.from_db">from_db</h2>
+
+<pre><code class="python">AminoAcidsSet.from_db(self)
 </code></pre>
 
 <p><strong>Arguments</strong></p>
 <p><strong>Returns</strong></p>
-<h2 id="genomics.CircularRegion.end5">end5</h2>
-
-<pre><code class="python">CircularRegion.end5(self)
-</code></pre>
-
-<p><strong>Arguments</strong></p>
-<p><strong>Returns</strong></p>
-<h2 id="genomics.CircularRegion.end3">end3</h2>
-
-<pre><code class="python">CircularRegion.end3(self)
-</code></pre>
-
-<p><strong>Arguments</strong></p>
-<p><strong>Returns</strong></p>
-<h2 id="genomics.CircularRegion.as_positive_strand">as_positive_strand</h2>
-
-<pre><code class="python">CircularRegion.as_positive_strand(self)
-</code></pre>
-
-<p><strong>Arguments</strong></p>
-<p><strong>Returns</strong></p>
-<h2 id="genomics.CircularRegion.as_negative_strand">as_negative_strand</h2>
-
-<pre><code class="python">CircularRegion.as_negative_strand(self)
-</code></pre>
-
-<p><strong>Arguments</strong></p>
-<p><strong>Returns</strong></p>
-<h2 id="genomics.CircularRegion.as_opposite_strand">as_opposite_strand</h2>
-
-<pre><code class="python">CircularRegion.as_opposite_strand(self)
-</code></pre>
-
-<p><strong>Arguments</strong></p>
-<p><strong>Returns</strong></p>
-<h2 id="genomics.CircularRegion.intersects">intersects</h2>
-
-<pre><code class="python">CircularRegion.intersects(self, other_region)
-</code></pre>
-
-<p><strong>Arguments</strong></p>
-<p><strong>Returns</strong></p>
-<h2 id="genomics.CircularRegion.contains">contains</h2>
-
-<pre><code class="python">CircularRegion.contains(self, other_region)
-</code></pre>
-
-<p><strong>Arguments</strong></p>
-<p><strong>Returns</strong></p>
-<h2 id="genomics.CircularRegion.is_within">is_within</h2>
-
-<pre><code class="python">CircularRegion.is_within(self, other_region)
-</code></pre>
-
-<p><strong>Arguments</strong></p>
-<p><strong>Returns</strong></p>
-<h1 id="genomics.Region">Region</h1>
-
-<pre><code class="python">Region(self, start, stop, strand=None, sequence_key=None)
-</code></pre>
-
-<p>Wrapper providing abstraction for circular or linear region.</p>
               
             </div>
           </div>
@@ -397,10 +371,10 @@ immediately precedes the first.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../DisjointRegion/" class="btn btn-neutral float-right" title="DisjointRegion">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../Variant/" class="btn btn-neutral float-right" title="Variant">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../GeneTable/" class="btn btn-neutral" title="GeneTable"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../AminoAcids/" class="btn btn-neutral" title="AminoAcids"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -426,10 +400,10 @@ immediately precedes the first.</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../GeneTable/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../AminoAcids/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../DisjointRegion/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../Variant/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

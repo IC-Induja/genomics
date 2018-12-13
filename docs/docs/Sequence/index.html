@@ -55,6 +55,55 @@
           
             <li class="toctree-l1">
 		
+    <span class="caption-text">annotations</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../Annotation/">Annotation</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../AnnotationTable/">AnnotationTable</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">gene</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../Gene/">Gene</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../GeneTable/">GeneTable</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">region</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../Region/">Region</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../DisjointRegion/">DisjointRegion</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../RegionTable/">RegionTable</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
     <span class="caption-text">sequence</span>
     <ul class="subnav">
                 <li class=" current">
@@ -66,18 +115,36 @@
                 </li>
                 <li class="">
                     
-    <a class="" href="../DNASequence/">DNASequence</a>
+    <a class="" href="../DNA/">DNA</a>
                 </li>
                 <li class="">
                     
-    <a class="" href="../RNASequence/">RNASequence</a>
+    <a class="" href="../RNA/">RNA</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../AminoAcids/">AminoAcids</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../SequenceSet/">SequenceSet</a>
                 </li>
     </ul>
 	    </li>
           
             <li class="toctree-l1">
 		
-    <a class="" href="../Region/">region</a>
+    <span class="caption-text">variant</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../Variant/">Variant</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../VariantTable/">VariantTable</a>
+                </li>
+    </ul>
 	    </li>
           
         </ul>
@@ -118,78 +185,233 @@
               
                 <h1 id="genomics.Sequence">Sequence</h1>
 
-<pre><code class="python">Sequence(self, seq, **kwargs)
+<pre><code class="python">Sequence(self, data, annotations=None, key=None, key_type=None, start_index=1, accepted_chars=None)
 </code></pre>
 
-<p>Abstract sequence class.</p>
-<p><strong>Properties</strong></p>
-<p>id (str): Identifier. Must be unique within a genome. If none is provided, uses a uuid.
-id_type (str): Source of identifier.
-data (str): Sequence contents.
-start_index (int): Index representing first position in data. Default 1 (as 1-indexing is common in biology).</p>
+<p>Base class for annotated sequence.</p>
+<p><strong>Attributes</strong></p>
+<ul>
+<li><code>data (str)</code>: Sequence contents.</li>
+<li><code>annotations (AnnotationTable)</code>: Description of sequence features. Defaults to None.</li>
+<li><code>key (str)</code>: Identifier. Must be unique within a Genome or other SequenceSet.
+    If None, uses a uuid. (Randomly generated unique identifier.)</li>
+<li><code>key_type (str)</code>: Source of key. Defaults to None.</li>
+<li><code>start_index (int)</code>: Index representing first position in data. Default 1
+    (1-indexing is common in biology).</li>
+<li><code>is_circular (bool)</code>: Indicates whether last index in sequence immediately
+    precedes the first (ie. whether sequence forms a circle).</li>
+<li><code>accepted_chars (str)</code>: Characters that are allowed in the sequence data.
+    Ex. If accepted_chars='ATCG', then a sequence containing 'N' would raise
+    a ValueError. Defaults to None, which accepts all alphabet characters,
+    but not numbers or symbols.</li>
+<li><code>description (str)</code>: Information about the sequence. Useful for storing
+    non-identifier data found in certain file formats (Ex. In FASTA headers).</li>
+<li><code>metadata (dict)</code>: Key-value pairs that provide information about the
+    sequence. Useful for storing the extensive metadata found in certain
+    file formats (ex. Genbank files).</li>
+<li><code>_is_reference (bool)</code>: Indicates whether sequence is directly from
+    reference database, and has not been modified.</li>
+<li><code>_reference_id (string)</code>: ID of sequence in reference db</li>
+<li><code>_reference_db (string)</code>: Well-known biological database from which the
+    sequence was retrieved. Library currently supports NCBI, EMBL, and DDBJ.</li>
+<li><code>_index_in_reference(int)</code>: Position of first element of this sequence in the
+    reference sequence (uses 1-indexing for the referencing)</li>
+</ul>
 <h2 id="genomics.Sequence.from_file">from_file</h2>
 
-<pre><code class="python">Sequence.from_file(format=None, **kwargs)
+<pre><code class="python">Sequence.from_file(start=None, stop=None, filetype=None, key=None, key_type=None, start_index=1, with_annotations=True, accepted_chars=None)
 </code></pre>
 
 <p>Reads sequence data from file.</p>
 <p>Accepts a variety of biological formats (FASTA, Genbank, etc.).
 Also can read a raw sequence from .txt</p>
-<p>Accepted File Extentions:</p>
+<p>Accepted File Extensions:</p>
 <ul>
-<li>2bit:</li>
-<li>FASTA: .fa, .fasta (if multiline FASTA, only first sequence is returned)</li>
-<li>Genbank: .gbk</li>
+<li>FASTA: .fa, .fasta, .fna, .ffa, .frn, .faa</li>
+<li>Genbank: .gb, .gbk</li>
 <li>GFF: .gff, .gff3</li>
-<li>Nibble: .nib</li>
 <li>Plain Text: .txt</li>
 </ul>
-<p>Note: Annotation data in the file is ignored when constructing a sequence.</p>
+<p>Note: If file contains multiple sequences, use a SequenceSet instead.
+(Multiple sequences will raise ValueError)</p>
 <p><strong>Arguments</strong></p>
 <ul>
-<li><strong>filepath (str)</strong>: Location of file (absolute or relative filepath, or a URL)</li>
-<li><strong>format (str)</strong>: Format of file contents. If not provided, will be inferred form file extention.</li>
+<li><strong>path (str)</strong>: Location of file (absolute or relative path, or a URL)</li>
+<li><strong>format (str)</strong>: Format of file contents. One of the accepted file
+    extensions listed above, or one of {fasta, gff, genbank, plaintext}
+    If not provided, will be inferred from file extension.
+    If gff is provided, sequence must be at the bottom of the file,
+    beneath annotations</li>
+<li><strong>with_annotations (bool)</strong>: if False, all annotation data in the sequence
+    file (ex. from a GFF containing a sequence) is ignored.</li>
 </ul>
 <p><strong>Returns</strong></p>
-<p><code>Sequence</code>: sequence contained in file</p>
+<p>One of {
+    Sequence, DNASequence, RNASequence, AminoAcidSequence
+<code>}</code>: sequence contained in file, with type determined by file contents</p>
+<p><strong>Raises</strong></p>
+<ul>
+<li><code>FileNotFoundError</code>: if either path or annotation_path cannot be found</li>
+<li><code>ValueError</code>: if file format is not understood
+            if with_annotations is False but annotation_path is specified
+            if key_type is specified and does not equal uuid, but key is
+                not specified</li>
+</ul>
 <h2 id="genomics.Sequence.from_db">from_db</h2>
 
-<pre><code class="python">Sequence.from_db(db='ncbi')
+<pre><code class="python">Sequence.from_db(start=None, stop=None, db='ncbi', key_type='accession', start_index=1, with_annotations=True, accepted_chars=None)
 </code></pre>
 
 <p>Constructs a sequence by fetching data from a commonly used
 biological database.</p>
-<p>Supports NCBI, EMBL, and DDOJ databases.</p>
+<p>Currently supports NCBI. EMBL, and DDBJ databases to be added in future.</p>
+<p>Supported Key Types:</p>
+<ul>
+<li>NCBI:<ul>
+<li>'accession' - also known as the accession.version number. If
+    no version is provided, the latest version will be used.
+    However, use of accessions without version is <strong>strongly
+    discouraged</strong>, as it reduces the reproducibility of the code.</li>
+<li>ncbi_gi - to be added in future.</li>
+</ul>
+</li>
+</ul>
 <p><strong>Arguments</strong></p>
+<ul>
+<li><strong>key (string)</strong>: Unique identifier for sequences in target db.
+    Ex. Accession Number</li>
+<li><strong>start (int)</strong>: Index of first base to be included in the sequence (if
+    entire sequence is not desired)</li>
+<li><strong>stop (int)</strong>: Index of last base to be included in the sequence (if
+    entire sequence is not desired)</li>
+<li><strong>db (string)</strong>: One of {'ncbi', 'ddbj', 'embl'}. (<strong>Currently only 'ncbi'
+    is supported.</strong>) Major biological database. Use a db that contains
+    the desired sequence.</li>
+<li><strong>with_annotations (bool)</strong>: If true, retrieve annotation data in addition
+    to the sequence data.</li>
+<li><strong>start_index (int)</strong>: Index to use for first first character in the
+    sequence file. Defaults to 1.</li>
+</ul>
 <p><strong>Returns</strong></p>
-<p><code>Sequence</code>: Sequence retreived from database.</p>
+<p><code>Sequence, or one of its subclasses DNA, RNA, or AminoAcids</code>:
+    sequence contained in file, with type determined from db and
+    retrieved data</p>
+<p><strong>Raises</strong></p>
+<ul>
+<li><code>ValueError</code>:</li>
+</ul>
+<h2 id="genomics.Sequence.reindex">reindex</h2>
+
+<pre><code class="python">Sequence.reindex(self, new_start_index)
+</code></pre>
+
+<p>Set a new start index for the sequence, and adjust start and end of
+sequence annotations accordingly (so that the annotations stay at the
+same position relative the sequence, and cover the same part of the data).</p>
+<p>Useful for converting between 0-indexing and 1-indexing.</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><strong>new_start_index (int)</strong>: index to use for first position in sequence data.</li>
+</ul>
+<p><strong>Returns</strong></p>
+<p><code>Sequence</code>: Sequence with new start index, and all annotations adjusted to
+    reflect the new index</p>
 <h2 id="genomics.Sequence.get_subsequence">get_subsequence</h2>
 
-<pre><code class="python">Sequence.get_subsequence(self, **kwargs)
+<pre><code class="python">Sequence.get_subsequence(self, region=None, start=None, stop=None, reindex=False, start_index=None)
 </code></pre>
 
 <p>Gets subset of sequence.</p>
 <p>Note: subsequence is inclusive of both start and end indices.</p>
 <p><strong>Arguments</strong></p>
 <ul>
-<li><strong>start (int)</strong>: index of first subsequence element. Defaults to start of sequence.</li>
-<li><strong>stop (int)</strong>: index of last subsequence element. Defaults to end of sequence.</li>
-<li><strong>reindex (bool)</strong>: if true, indexing of sequence will start at 1. Otherwise,
-    indexing will be unchanged (ie. index of first element in sequence
-    will be it's current position in the sequence, and so on)</li>
+<li><strong>start (int)</strong>: index of first subsequence element. Defaults to start of
+    parent sequence.</li>
+<li><strong>stop (int)</strong>: index of last subsequence element. Defaults to end of
+    parent sequence.</li>
+<li><strong>reindex (bool)</strong>: if true, index of subsequence will start at 1. Otherwise,
+    indexing will be unchanged (ie. index to get first element in
+    subsequence will be the same as the index in the parent sequence,
+    and so on).</li>
+<li><strong>start_index</strong>: Index of first element in sequence.</li>
 </ul>
 <h2 id="genomics.Sequence.find">find</h2>
 
-<pre><code class="python">Sequence.find(self, query, strand=None)
+<pre><code class="python">Sequence.find(self, query, strand=None, all=False)
 </code></pre>
 
 <p>locates query in sequence.</p>
 <p><strong>Arguments</strong></p>
 <ul>
 <li><strong>query (string)</strong>: string to search for</li>
+<li><strong>strand (string)</strong>: One of {'+', '-', None}. If specified, find will only
+    search the given strand.</li>
 </ul>
 <p><strong>Returns</strong></p>
-<p><code>Region</code>: location of first match on sequence</p>
+<p><code>Region/list of Region</code>: location of first match on sequence, or, if
+    all=True, a list containing locations of all matches</p>
+<h2 id="genomics.Sequence.count">count</h2>
+
+<pre><code class="python">Sequence.count(self, query, overlapping=True)
+</code></pre>
+
+<p>counts instances of query in sequence.</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><strong>query (string)</strong>: string to search for</li>
+<li><strong>overlapping (bool)</strong>: include overlapping instances of query</li>
+</ul>
+<p><strong>Returns</strong></p>
+<p><code>int</code>: number of occurrences of query in sequence</p>
+<h2 id="genomics.Sequence.find_pattern">find_pattern</h2>
+
+<pre><code class="python">Sequence.find_pattern(self, pattern, all=False)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.Sequence.count_pattern">count_pattern</h2>
+
+<pre><code class="python">Sequence.count_pattern(self, pattern, include_overlapping=False)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.Sequence.compute_distance">compute_distance</h2>
+
+<pre><code class="python">Sequence.compute_distance(self, regionA, regionB, fn='levhenstein')
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.Sequence.apply_variants">apply_variants</h2>
+
+<pre><code class="python">Sequence.apply_variants(self, variant_data)
+</code></pre>
+
+<p>applies one or more variants (Variant, Iterable<Variant>, or VariantTable)
+if given string, it will open variant file at that path</p>
+<h2 id="genomics.Sequence.save_as">save_as</h2>
+
+<pre><code class="python">Sequence.save_as(self, path, filetype=None, overwrite_existing=False)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.Sequence.save_sequence">save_sequence</h2>
+
+<pre><code class="python">Sequence.save_sequence(self, path, filetype=None, overwrite_existing=False)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
+<h2 id="genomics.Sequence.save_annotations">save_annotations</h2>
+
+<pre><code class="python">Sequence.save_annotations(self, path, filetype=None, overwrite_existing=False)
+</code></pre>
+
+<p><strong>Arguments</strong></p>
+<p><strong>Returns</strong></p>
               
             </div>
           </div>
@@ -197,10 +419,10 @@ biological database.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../DNASequence/" class="btn btn-neutral float-right" title="DNASequence">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../DNA/" class="btn btn-neutral float-right" title="DNA">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../.." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../RegionTable/" class="btn btn-neutral" title="RegionTable"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -226,10 +448,10 @@ biological database.</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../.." style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../RegionTable/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../DNASequence/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../DNA/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
