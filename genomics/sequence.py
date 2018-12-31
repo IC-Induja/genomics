@@ -69,7 +69,7 @@ class Sequence(object):
                 "Annotations provided in unexpected type %s." % type(annotations))
 
     @classmethod
-    def from_file(path, start=None, stop=None, filetype=None, key=None,
+    def from_file(path, start=None, end=None, filetype=None, key=None,
                   key_type=None, start_index=1, with_annotations=True,
                   accepted_chars=None):
         # NOTE: How should we handle multiline fasta? Throw error and suggest
@@ -85,6 +85,7 @@ class Sequence(object):
         - Genbank: .gb, .gbk
         - GFF: .gff, .gff3
         - Plain Text: .txt
+        - XML: .xml
 
         Note: If file contains multiple sequences, use a SequenceSet instead.
         (Multiple sequences will raise ValueError)
@@ -114,7 +115,7 @@ class Sequence(object):
         raise NotImplementedError()
 
     @classmethod
-    def from_db(key, start=None, stop=None, db="ncbi", key_type="accession",
+    def from_db(key, start=None, end=None, db="ncbi", key_type="accession",
                 start_index=1, with_annotations=True, accepted_chars=None):
         """Constructs a sequence by fetching data from a commonly used
         biological database.
@@ -135,7 +136,7 @@ class Sequence(object):
             Ex. Accession Number
         start (int): Index of first base to be included in the sequence (if
             entire sequence is not desired)
-        stop (int): Index of last base to be included in the sequence (if
+        end (int): Index of last base to be included in the sequence (if
             entire sequence is not desired)
         db (string): One of {'ncbi', 'ddbj', 'embl'}. (**Currently only 'ncbi'
             is supported.**) Major biological database. Use a db that contains
@@ -187,9 +188,9 @@ class Sequence(object):
     # TODO: implement
 
     # NOTE: should we allow for subsequences to keep their original indexing? or
-    # should we have all the sequence methods take a start and stop argument?
+    # should we have all the sequence methods take a start and end argument?
     # (To specify what part of the sequence to be searching/ calculating in)
-    def get_subsequence(self, region=None, start=None, stop=None, reindex=False,
+    def get_subsequence(self, region=None, start=None, end=None, reindex=False,
                         start_index=None):
         # NOTE: what should we call our locations? Which one?: coordinate,
         #       position, loci, index
@@ -200,7 +201,7 @@ class Sequence(object):
         # Arguments
         start (int): index of first subsequence element. Defaults to start of
             parent sequence.
-        stop (int): index of last subsequence element. Defaults to end of
+        end (int): index of last subsequence element. Defaults to end of
             parent sequence.
         reindex (bool): if true, index of subsequence will start at 1. Otherwise,
             indexing will be unchanged (ie. index to get first element in
@@ -208,7 +209,7 @@ class Sequence(object):
             and so on).
         start_index: Index of first element in sequence.
         """
-        allowed_kwargs = {'start', 'stop', 'reindex', 'index'}
+        allowed_kwargs = {'start', 'end', 'reindex', 'index'}
         raise NotImplementedError()
 
     # TODO: implement
@@ -417,7 +418,7 @@ class DNA(Sequence):
         raise NotImplementedError()
 
     # TODO: implement
-    def to_rna(self, region=None, start=None, stop=None, strand=None):
+    def to_rna(self, region=None, start=None, end=None, strand=None):
         """
 
         # Arguments
@@ -576,7 +577,7 @@ class AminoAcids(Sequence):
     def __repr__(self):
         raise NotImplementedError()
 
-    def get_aa(self, start, stop, index=1):
+    def get_aa(self, start, end, index=1):
         """
 
         # Arguments

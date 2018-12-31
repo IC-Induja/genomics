@@ -27,6 +27,16 @@ class SequenceSet(object):
     def __repr__(self):
         raise NotImplementedError()
 
+    def __plus__(self):
+        raise NotImplementedError()
+
+    def __minus__(self):
+        raise NotImplementedError()
+
+    def sequence_count():
+        """ should be a property """
+        raise NotImplementedError()
+
     @classmethod
     def from_file(path, filetype=None):
         """

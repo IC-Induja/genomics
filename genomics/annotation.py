@@ -6,8 +6,9 @@ from __future__ import division
 from __future__ import print_function
 
 from .core.table import FlatTable
+from .region import RegionBase
 
-class Annotation(object):
+class Annotation(RegionBase):
     """
     # Properties
 
@@ -16,13 +17,9 @@ class Annotation(object):
     def __init__(self, annotation_data, region=None, start=None, stop=None, strand=None):
         raise NotImplementedError()
 
-    def __len__(self):
-        raise NotImplementedError()
-
     def __repr__(self):
         raise NotImplementedError()
 
-# NOTE: if I don't come up w/ other useful methods for this, remove class
 class DNAAnnotation(Annotation):
     """
     # Properties
@@ -35,12 +32,28 @@ class DNAAnnotation(Annotation):
 class AnnotationTable(FlatTable):
     """
     # Properties
+    - start
+    - stop
+    - strand
+    - seqid
+    - source
+    - type
+    - score
+    - phase
+    - attributes (a dict?? ordered dict?? variable length array??)
+    - _pointer to a sequence
+    - _seq_is_double_stranded (? redundant)
+    - _seq_length
+    - _seq_is_double_stranded
+    - _ignore_boundary_checks
 
     """
+    # NOTE: basically a RegionTable w/ additional columns
     def __init__(self, keep_cds_annotations=False, use_headers=None):
         raise NotImplementedError()
 
-    def get_genes(self):
+    @property
+    def genes(self):
         """
         # Arguments
 
@@ -49,31 +62,11 @@ class AnnotationTable(FlatTable):
         """
         raise NotImplementedError()
 
-    def filter(self, fn, col=None):
-        """
-        # Arguments
-
-        # Returns
-
-        """
+    @property
+    def transcripts(self):
         raise NotImplementedError()
 
-    def filter_type(self, type):
-        """
-        # Arguments
-
-        # Returns
-
-        """
-        raise NotImplementedError()
-
-    def filter_region(self, region=None, start=None, stop=None, strand=None):
-        """
-        # Arguments
-
-        # Returns
-
-        """
+    def ORFs(self):
         raise NotImplementedError()
 
     def apply(self, fn, col=None):
